@@ -82,7 +82,7 @@ def handle_location_message(event):
     
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        tokyo_place = re.search(r".+都(.+)区", event.message.address)
+        tokyo_place = re.search(r".+都(.+?)[市|区]", event.message.address)
         if tokyo_place:
             reply_text = tokyo_place.group(1) + "ぷり。"
     except:
