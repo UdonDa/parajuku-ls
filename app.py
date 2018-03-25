@@ -44,9 +44,12 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
+    nakahiko = Nakahiko()
+    result = nakahiko.send_request_to_nakahiko('渋谷')
+
     # handle webhook body
     try:
-        handler.handle(body, signature)
+        handler.handle(str(result), signature)
     except InvalidSignatureError:
         abort(400)
 
