@@ -56,7 +56,7 @@ class Nakahiko():
             for shop in pripara_shops[:6]:
                 shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
                 shop['address'] = shop['address'].replace('　', ',')
-                reply_text += "\n名前 : {}\n住所 : {}\nガチャは{}ぷり\n{}{}\n".format(shop['name'], shop['address'],
+                reply_text += "\n名前 : {}\n住所 : {}\n神ガチャは{}ぷり\n{}{}\n".format(shop['name'], shop['address'],
                                                                             shop['hasGacha'], address_base,
                                                                             shop['address'])
         return reply_text
