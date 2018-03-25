@@ -60,19 +60,9 @@ def handle_message(event):
     import traceback
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        text = event.message.text
+        location = event.message.text
         nakahiko = Nakahiko()
-        pripara_shops = nakahiko.get_pripara_shops(text)
-        if pripara_shops:
-            reply_text = ''
-            address_base = 'http://maps.google.co.jp/maps?q='
-            i = 0
-            for shop in pripara_shops:
-                if i < 6:
-                    shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
-                    shop['address'] = shop['address'].replace('　', ',')
-                    reply_text += "\n名前 : {}\n住所 : {}\nガチャは{}ぷり\n{}{}\n".format(shop['name'], shop['address'], shop['hasGacha'], address_base, shop['address'])
-                i += 1
+        reply_text = nakahiko.get_shops_info(location)
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
 
