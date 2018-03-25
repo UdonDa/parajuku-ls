@@ -63,10 +63,10 @@ def handle_message(event):
 
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        print(event)
-        if event:
+        text = event.message.text
+        if text:
             nakahiko = Nakahiko()
-            puripara_shops = nakahiko.get_pripara_shops(location)
+            puripara_shops = nakahiko.get_pripara_shops(text)
             reply_text = ''
             for doc in puripara_shops:
                 doc['hasGacha'] = "ある" if doc['hasGacha'] == "True" else "ない"
