@@ -1,6 +1,6 @@
 import os
 import sys
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 import re
 import traceback
 from linebot import (
@@ -32,7 +32,7 @@ handler = WebhookHandler(channel_secret)
 
 @app.route("/")
 def hello_world():
-    return 'hello world'
+    return '<a href="https://github.com/UdonDa/parajuku-ls">Please Check our GitHub repository</a>'
 
 @app.route("/callback", methods=['POST'])
 def callback():
