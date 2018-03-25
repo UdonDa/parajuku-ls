@@ -63,8 +63,8 @@ def handle_message(event):
 
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        location = event.message.text
-        if location:
+        print(event)
+        if event:
             nakahiko = Nakahiko()
             puripara_shops = nakahiko.get_pripara_shops(location)
             reply_text = ''
@@ -100,3 +100,7 @@ def handle_location_message(event):
 
 if __name__ == "__main__":
     app.run()
+
+    {"events": [{"type": "message", "replyToken": "5144c5b1e000426287d57d8f26c7ac27",
+                 "source": {"userId": "U4ff845a068baeab5ed5126415c3effec", "type": "user"}, "timestamp": 1521957403380,
+                 "message": {"type": "text", "id": "7682192081743", "text": "aaaaaaaaa"}}]}
