@@ -69,11 +69,12 @@ def handle_message(event):
             nakahiko = Nakahiko()
             puripara_shops = nakahiko.get_pripara_shops(text)
             reply_text = ''
-            for doc in puripara_shops:
-                doc['hasGacha'] = "ある" if doc['hasGacha'] == "True" else "ない"
-                reply_text += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(doc['name'], doc['address'], doc['hasGacha'])
+            for shop in puripara_shops:
+                shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
+                reply_text += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(shop['name'], shop['address'], shop['hasGacha'])
+                print("Log - A: {}".format(reply_text))
+        print("Log - B: {}".format(reply_text))
 
-            reply_text = '返信ぷり'
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
 
@@ -103,7 +104,3 @@ def handle_location_message(event):
 
 if __name__ == "__main__":
     app.run()
-
-    {"events": [{"type": "message", "replyToken": "5144c5b1e000426287d57d8f26c7ac27",
-                 "source": {"userId": "U4ff845a068baeab5ed5126415c3effec", "type": "user"}, "timestamp": 1521957403380,
-                 "message": {"type": "text", "id": "7682192081743", "text": "aaaaaaaaa"}}]}
