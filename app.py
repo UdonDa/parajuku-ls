@@ -30,6 +30,8 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
+defualt_message = "ごめんなさい。プリパラ検索は東京だけしか対応してないの。"
+
 @app.route("/")
 def hello_world():
     return 'hello world'
@@ -53,12 +55,12 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
+    reply_text = defualt_message
     try:
         location = event.message.text
         reply_text = get_shops_info(location)
     except:
-        reply_text = "えらーぷり。\n" + traceback.format_exc()
+        reply_text = "何かがおかしいみたいね。\n" + traceback.format_exc()
 
     line_bot_api.reply_message(
         event.reply_token,
@@ -67,15 +69,15 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
-    reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
+    reply_text = defualt_message
     try:
         location = re.search(r".+都(.+?)[市|区]", event.message.address)
         if location:
             reply_text = get_shops_info(location.group(1))
         else:
-            reply_text = "この辺にはプリパラはないプリ…。"
+            reply_text = "この辺りにプリパラはないみたいね。"
     except:
-        reply_text = "えらーぷり。\n" + traceback.format_exc()
+        reply_text = "何かがおかしいみたいね。\n" + traceback.format_exc()
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply_text)
