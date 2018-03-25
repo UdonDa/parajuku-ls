@@ -11,6 +11,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
+from src.nakahiko import Nakahiko
 
 app = Flask(__name__)
 
@@ -30,7 +31,9 @@ handler = WebhookHandler(channel_secret)
 
 @app.route("/")
 def hello_world():
-    return "hello world!"
+    nakahiko = Nakahiko()
+    result = nakahiko.send_request_to_nakahiko('渋谷')
+    return str(result)
 
 @app.route("/callback", methods=['POST'])
 def callback():
