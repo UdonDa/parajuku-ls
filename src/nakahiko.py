@@ -33,17 +33,26 @@ class Nakahiko():
         # 最初の方に無駄な文字列が入っており, それを取り除いて, jsonに型を変える
         return json.loads(result[12:-1])
 
-    def send_request_to_nakahiko(self, location):
+    def get_pripara_shops(self, location):
         """
         :param location (ex)渋谷:
         :return: json
         """
         url = self.make_request_url(location)
         result = self.send_request(url)
-        return self.convert_to_json(result)
+        result = self.convert_to_json(result)
+        return result['response']
 
 #if __name__ == '__main__':
-#    nakahiko = Nakahiko()
-#    location = str(u"渋谷")
-#    result = nakahiko.send_request_to_nakahiko(location)
-#    print(result['response'])
+    #nakahiko = Nakahiko()
+    #location = str("未来")
+    #pripara_shops = nakahiko.get_pripara_shops(location)
+    #result = ''
+    #for doc in pripara_shops:
+    #    doc['hasGacha'] = "ある" if doc['hasGacha'] == "True" else "ない"
+    #    result += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(doc['name'], doc['address'], doc['hasGacha'])
+    #print(pripara_shops)
+    #if pripara_shops:
+    #    print("True")
+    #elif not pripara_shops:
+    #    print("False")
