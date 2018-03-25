@@ -65,9 +65,14 @@ def handle_message(event):
         pripara_shops = nakahiko.get_pripara_shops(text)
         if pripara_shops:
             reply_text = ''
+            address_base = 'http://maps.google.co.jp/maps?q='
+            i = 0
             for shop in pripara_shops:
-                shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
-                reply_text += "\n名前 : {}\n住所 : {}\nガチャは{}ぷり\n".format(shop['name'], shop['address'], shop['hasGacha'])
+                if i < 6:
+                    shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
+                    shop['address'] = shop['address'].replace('　', ',')
+                    reply_text += "\n名前 : {}\n住所 : {}\nガチャは{}ぷり\n{}{}\n".format(shop['name'], shop['address'], shop['hasGacha'], address_base, shop['address'])
+                i += 1
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
 
