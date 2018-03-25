@@ -54,9 +54,7 @@ class Nakahiko():
             reply_text = ""
             address_base = 'http://maps.google.co.jp/maps?q='
             for shop in pripara_shops[:6]:
-                print("------------------------------------{}".format(shop['hasGacha']))
                 shop['hasGacha'] = "ある" if str(shop['hasGacha']) == "True" else "ない"
-                print("------------------------------------{}".format(shop['hasGacha']))
                 shop['address'] = shop['address'].replace('　', ',')
                 reply_text += "\n名前 : {}\n住所 : {}\n神ガチャは{}ぷり\n{}{}\n".format(shop['name'], shop['address'],
                                                                             shop['hasGacha'], address_base,
