@@ -32,7 +32,7 @@ handler = WebhookHandler(channel_secret)
 
 @app.route("/")
 def hello_world():
-    return render_template()
+    return '<a href="https://github.com/UdonDa/parajuku-ls">Please Check our GitHub repository</a>'
 
 @app.route("/callback", methods=['POST'])
 def callback():
