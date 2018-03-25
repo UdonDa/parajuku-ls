@@ -64,6 +64,7 @@ def handle_message(event):
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
         text = event.message.text
+        print(text)
         if text:
             nakahiko = Nakahiko()
             puripara_shops = nakahiko.get_pripara_shops(text)
@@ -71,6 +72,8 @@ def handle_message(event):
             for doc in puripara_shops:
                 doc['hasGacha'] = "ある" if doc['hasGacha'] == "True" else "ない"
                 reply_text += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(doc['name'], doc['address'], doc['hasGacha'])
+
+            reply_text = '返信ぷり'
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
 
