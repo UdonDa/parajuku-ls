@@ -31,9 +31,7 @@ handler = WebhookHandler(channel_secret)
 
 @app.route("/")
 def hello_world():
-    nakahiko = Nakahiko()
-    result = nakahiko.send_request_to_nakahiko('渋谷')
-    return str(result)
+    return 'hello world'
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -44,12 +42,12 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
-    nakahiko = Nakahiko()
-    result = nakahiko.send_request_to_nakahiko('渋谷')
+    #nakahiko = Nakahiko()
+    #result = nakahiko.send_request_to_nakahiko('渋谷')
 
     # handle webhook body
     try:
-        handler.handle(str(result), signature)
+        handler.handle("ぷりぱら", signature)
     except InvalidSignatureError:
         abort(400)
 
