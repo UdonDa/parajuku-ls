@@ -63,10 +63,10 @@ def handle_message(event):
     try:
         text = event.message.text
         nakahiko = Nakahiko()
-        puripara_shops = nakahiko.get_pripara_shops(text)
-        if puripara_shops:
+        pripara_shops = nakahiko.get_pripara_shops(text)
+        if pripara_shops:
             reply_text = ''
-            for shop in puripara_shops:
+            for shop in pripara_shops:
                 shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
                 reply_text += "\n名前 : {}\n住所 : {}\nガチャは{}ぷり\n".format(shop['name'], shop['address'], shop['hasGacha'])
     except:
@@ -76,6 +76,6 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=reply_text)
     )
-    
+
 if __name__ == "__main__":
     app.run()
