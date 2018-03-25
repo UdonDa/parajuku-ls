@@ -56,8 +56,7 @@ def handle_message(event):
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
         location = event.message.text
-        nakahiko = Nakahiko()
-        reply_text = nakahiko.get_shops_info(location)
+        reply_text = get_shops_info(location)
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
 
@@ -70,19 +69,22 @@ def handle_message(event):
 def handle_location_message(event):
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        location = ''
-        try:
-            location = re.search(r".+都(.+?)[市|区]", event.message.address).group(1)
-        except:
-            location = "東京"
-        nakahiko = Nakahiko()
-        reply_text = nakahiko.get_shops_info(location)
+        location = re.search(r".+都(.+?)[市|区]", event.message.address).group(1)
+        if location:
+            reply_text = get_shops_info(location)
+        else:
+            reply_text = "この辺にはプリパラはないプリ…。"
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply_text)
     )
+
+
+def get_shops_info(location):
+    nakahiko = Nakahiko()
+    return nakahiko.get_shops_info(location)
 
 
 if __name__ == "__main__":
