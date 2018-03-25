@@ -49,8 +49,9 @@ class Nakahiko():
         :return: str
         """
         pripara_shops = self.get_pripara_shops(location)
-        reply_text = ''
+        reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
         if pripara_shops:
+            reply_text = ""
             address_base = 'http://maps.google.co.jp/maps?q='
             i = 0
             for shop in pripara_shops:

@@ -53,7 +53,6 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    import traceback
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
         location = event.message.text
@@ -69,7 +68,6 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
-
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
         location = re.search(r".+都(.+?)[市|区]", event.message.address)
