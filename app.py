@@ -70,7 +70,11 @@ def handle_message(event):
 def handle_location_message(event):
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        location = re.search(r".+都(.+?)[市|区]", event.message.address)
+        location = ''
+        try:
+            location = re.search(r".+都(.+?)[市|区]", event.message.address).group(1)
+        except:
+            location = "東京"
         nakahiko = Nakahiko()
         reply_text = nakahiko.get_shops_info(location)
     except:
