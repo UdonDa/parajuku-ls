@@ -46,6 +46,10 @@ def callback():
     #result = nakahiko.send_request_to_nakahiko('渋谷')
 
     # handle webhook body
+
+    print(body)
+    print(type(body))
+
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
