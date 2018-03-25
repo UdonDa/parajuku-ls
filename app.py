@@ -1,7 +1,12 @@
 import os
 import sys
 from flask import Flask, request, abort
-
+import re
+from urllib.request import *
+from urllib.parse import *
+import json
+import argparse
+import requests
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -42,14 +47,7 @@ def callback():
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
 
-    #nakahiko = Nakahiko()
-    #result = nakahiko.send_request_to_nakahiko('渋谷')
-
     # handle webhook body
-
-    print(body)
-    print(type(body))
-
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
@@ -60,9 +58,44 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    import traceback
+
+    reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
+    try:
+        tokyo_place = re.search(r".+都(.+)区", event.message.address)
+        if tokyo_place:
+            location = tokyo_place.group(1) + "ぷり。"
+            nakahiko = Nakahiko()
+            puripara_shops = nakahiko.get_pripara_shops(location)
+            reply_text = ''
+            for doc in puripara_shops:
+                doc['hasGacha'] = "ある" if doc['hasGacha'] == "True" else "ない"
+                reply_text += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(doc['name'], doc['address'], doc['hasGacha'])
+    except:
+        reply_text = "えらーぷり。\n" + traceback.format_exc()
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=reply_text)
+    )
+
+    #nakahiko = Nakahiko()
+    #result = nakahiko.send_request_to_nakahiko('渋谷')
+
+@handler.add(MessageEvent, message=LocationMessage)
+def handle_location_message(event):
+    import traceback
+
+    reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
+    try:
+        tokyo_place = re.search(r".+都(.+)区", event.message.address)
+        if tokyo_place:
+            reply_text = tokyo_place.group(1) + "ぷり。"
+    except:
+        reply_text = "えらーぷり。\n" + traceback.format_exc()
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=reply_text))
 
 
 if __name__ == "__main__":
