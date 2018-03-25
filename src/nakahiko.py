@@ -16,8 +16,6 @@ class Nakahiko():
 
     def send_request(self, url):
         try:
-            #print("---------------{}---------------".format(urlopen(url)))
-
             response = requests.get(url)
             doc = response.text
             return doc
@@ -31,17 +29,20 @@ class Nakahiko():
 
         return url
 
+    def convert_to_json(self, result):
+        return json.loads(result[12:-1])
+
     def send_request_to_nakahiko(self, location):
         """
         :param location (ex)渋谷:
-        :return: request
+        :return: json
         """
         url = self.make_request_url(location)
-        return self.send_request(url)
+        result = self.send_request(url)
+        return self.convert_to_json(result)
 
 if __name__ == '__main__':
     nakahiko = Nakahiko()
     location = str(u"渋谷")
     result = nakahiko.send_request_to_nakahiko(location)
-    #res_decoded = result.decode("utf-8")
-    print(result)
+    print(result['response'])
