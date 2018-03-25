@@ -63,9 +63,8 @@ def handle_message(event):
 
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        tokyo_place = re.search(r".+都(.+)区", event.message.address)
-        if tokyo_place:
-            location = tokyo_place.group(1) + "ぷり。"
+        location = event.message.text
+        if location:
             nakahiko = Nakahiko()
             puripara_shops = nakahiko.get_pripara_shops(location)
             reply_text = ''
