@@ -2,11 +2,7 @@ import os
 import sys
 from flask import Flask, request, abort
 import re
-from urllib.request import *
-from urllib.parse import *
-import json
-import argparse
-import requests
+import traceback
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -73,18 +69,18 @@ def handle_message(event):
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
-    import traceback
-    
+
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        tokyo_place = re.search(r".+都(.+?)[市|区]", event.message.address)
-        if tokyo_place:
-            reply_text = tokyo_place.group(1) + "ぷり。"
+        location = re.search(r".+都(.+?)[市|区]", event.message.address)
+        nakahiko = Nakahiko()
+        reply_text = nakahiko.get_shops_info(location)
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=reply_text))
+        TextSendMessage(text=reply_text)
+    )
 
 
 if __name__ == "__main__":
