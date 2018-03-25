@@ -69,11 +69,11 @@ def handle_message(event):
 def handle_location_message(event):
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
-        location = re.search(r".+都(.+?)[市|区]", event.message.address)
+        location = re.search(r".+都(.+?)[市|区]", event.message.address or "")
         if location:
             reply_text = get_shops_info(location.group(1))
         else:
-            reply_text = "この辺にはプリパラはないプリ…。"
+            reply_text = "この辺にはプリパラはないぷり…。"
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
     line_bot_api.reply_message(

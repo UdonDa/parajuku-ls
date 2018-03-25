@@ -15,3 +15,6 @@ def test3():
     p = PuriparaRegex()
     assert "八王子" == p.matching("東京都八王子市高倉町55−4")
 
+def test4():
+    p = PuriparaRegex()
+    assert "" == p.matching(None)
