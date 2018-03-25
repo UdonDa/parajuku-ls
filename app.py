@@ -1,6 +1,7 @@
 import os
 import sys
 from flask import Flask, request, abort
+import re
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -9,7 +10,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, LocationMessage
 )
 
 app = Flask(__name__)
@@ -55,6 +56,22 @@ def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+
+
+@handler.add(MessageEvent, message=LocationMessage)
+def handle_location_message(event):
+    import traceback
+    
+    reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
+    try:
+        tokyo_place = re.search(r".+都(.+)区", event.message.address)
+        if tokyo_place:
+            reply_text = tokyo_place.group(1) + "ぷり。"
+    except:
+        reply_text = "えらーぷり。\n" + traceback.format_exc()
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=reply_text))
 
 
 if __name__ == "__main__":
