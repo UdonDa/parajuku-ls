@@ -30,6 +30,7 @@ class Nakahiko():
         return url
 
     def convert_to_json(self, result):
+        # 最初の方に無駄な文字列が入っており, それを取り除いて, jsonに型を変える
         return json.loads(result[12:-1])
 
     def send_request_to_nakahiko(self, location):
