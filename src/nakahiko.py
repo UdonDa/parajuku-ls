@@ -43,16 +43,18 @@ class Nakahiko():
         result = self.convert_to_json(result)
         return result['response']
 
-#if __name__ == '__main__':
-    #nakahiko = Nakahiko()
-    #location = str(u"渋谷")
-    #pripara_shops = nakahiko.get_pripara_shops(location)
-    #print(pripara_shops['response'])
+if __name__ == '__main__':
+    nakahiko = Nakahiko()
+    location = str("未来")
+    pripara_shops = nakahiko.get_pripara_shops(location)
+    result = ''
+    for doc in pripara_shops:
+        doc['hasGacha'] = "ある" if doc['hasGacha'] == "True" else "ない"
+        result += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(doc['name'], doc['address'], doc['hasGacha'])
 
-    #print(pripara_shops[0])
-    #result = ''
-    #for doc in pripara_shops:
-    #    doc['hasGacha'] = "ある" if doc['hasGacha'] == "True" else "ない"
-    #    result += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(doc['name'], doc['address'], doc['hasGacha'])
+    #print(pripara_shops)
 
-    #print(result)
+    if pripara_shops:
+        print("True")
+    elif not pripara_shops:
+        print("False")

@@ -60,21 +60,16 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     import traceback
-
     reply_text = "わー！まだ東京しかたいおうしてないぷり！ごめんぷり！"
     try:
         text = event.message.text
-        print(text)
-        if text:
-            nakahiko = Nakahiko()
-            puripara_shops = nakahiko.get_pripara_shops(text)
+        nakahiko = Nakahiko()
+        puripara_shops = nakahiko.get_pripara_shops(text)
+        if puripara_shops:
             reply_text = ''
             for shop in puripara_shops:
                 shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
-                reply_text += "\n名前:{}\n住所:{}\nガチャは{}ぷり\n".format(shop['name'], shop['address'], shop['hasGacha'])
-                print("Log - A: {}".format(reply_text))
-        print("Log - B: {}".format(reply_text))
-
+                reply_text += "\n名前 : {}\n住所 : {}\nガチャは{}ぷり\n".format(shop['name'], shop['address'], shop['hasGacha'])
     except:
         reply_text = "えらーぷり。\n" + traceback.format_exc()
 
@@ -82,10 +77,6 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=reply_text)
     )
-
-    #nakahiko = Nakahiko()
-    #result = nakahiko.send_request_to_nakahiko('渋谷')
-
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
     import traceback
