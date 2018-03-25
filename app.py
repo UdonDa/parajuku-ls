@@ -14,7 +14,8 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage, TextSendMessage, LocationMessage
+
 )
 from src.nakahiko import Nakahiko
 
