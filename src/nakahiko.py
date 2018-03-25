@@ -49,11 +49,11 @@ class Nakahiko():
         :return: str
         """
         pripara_shops = self.get_pripara_shops(location)
-        reply_text = "わー！"
+        reply_text = "この辺にはプリパラはないぷり…。"
         if pripara_shops:
             reply_text = ""
             address_base = 'http://maps.google.co.jp/maps?q='
-            for shop in pripara_shops:
+            for shop in pripara_shops[:6]:
                 shop['hasGacha'] = "ある" if shop['hasGacha'] == "True" else "ない"
                 shop['address'] = shop['address'].replace('　', ',')
                 reply_text += "\n名前 : {}\n住所 : {}\nガチャは{}ぷり\n{}{}\n".format(shop['name'], shop['address'],
