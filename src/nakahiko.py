@@ -41,8 +41,8 @@ class Nakahiko():
         result = self.send_request(url)
         return self.convert_to_json(result)
 
-if __name__ == '__main__':
-    nakahiko = Nakahiko()
-    location = str(u"渋谷")
-    result = nakahiko.send_request_to_nakahiko(location)
-    print(result['response'])
+#if __name__ == '__main__':
+#    nakahiko = Nakahiko()
+#    location = str(u"渋谷")
+#    result = nakahiko.send_request_to_nakahiko(location)
+#    print(result['response'])
